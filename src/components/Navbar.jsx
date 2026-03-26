@@ -62,7 +62,7 @@ const Navbar = () => {
                     className="text-xl font-bold cursor-pointer tracking-tight z-10 flex-shrink-0"
                     onClick={(e) => scrollTo(e, '#home')}
                 >
-                    <span className="text-[#A277FF]">Suresh</span>
+                    <span className="text-white">Suresh</span>
                     <span className="text-[#00E5FF]">.dev</span>
                 </motion.div>
 

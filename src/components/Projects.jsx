@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Navigation, Code2, Database, Layout } from 'lucide-react';
-
+import { Navigation } from 'lucide-react';
+import { FaReact } from 'react-icons/fa';
+import { SiJavascript, SiTailwindcss } from 'react-icons/si';
 import movieBookingImg from '../MovieBooking.png';
 import ecommerceImg from '../E-commerce website.png';
 import gymWebsiteImg from '../Gym Website.png';
@@ -13,28 +14,28 @@ const Projects = () => {
             title: 'Movie Booking website',
             description: 'A sleek cinematic platform allowing users to browse the latest releases, pick their favorite seats, and book tickets seamlessly online.',
             image: movieBookingImg,
-            icons: [Code2, Layout, Database],
+            icons: [FaReact, SiJavascript, SiTailwindcss],
             liveUrl: "https://movie-website-quick-shows.vercel.app/"
         },
         {
             title: 'E-commerce website',
             description: 'A comprehensive online store featuring an intuitive product catalog, shopping cart logic, and a seamless checkout experience.',
             image: ecommerceImg,
-            icons: [Database, Layout, Code2],
+            icons: [FaReact, SiJavascript, SiTailwindcss],
             liveUrl: "https://e-commerce-project-one-ashen.vercel.app/"
         },
         {
             title: 'Gym Website',
             description: 'A modern fitness platform showcasing membership plans, expert trainer profiles, and up-to-date class schedules for health enthusiasts.',
             image: gymWebsiteImg,
-            icons: [Layout, Code2, Database],
+            icons: [FaReact, SiJavascript, SiTailwindcss],
             liveUrl: "https://cross-fit-gym-project.vercel.app/"
         },
         {
             title: 'MAAC Project',
             description: 'A creative portfolio and educational showcase highlighting dynamic 3D animation, VFX, and engaging multimedia design courses.',
             image: maacProjectImg,
-            icons: [Code2, Layout, Database],
+            icons: [FaReact, SiJavascript, SiTailwindcss],
             liveUrl: "https://maac-project-react.vercel.app/"
         }
     ];
@@ -101,24 +102,22 @@ const Projects = () => {
                                         ))}
                                     </div>
 
-                                    <div className="relative group/btn">
-                                        {/* Tooltip */}
-                                        <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-md border border-white/10 text-white text-xs py-1.5 px-3 rounded-lg opacity-0 group-hover/btn:opacity-100 group-hover/btn:-translate-y-2 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl font-medium tracking-wide z-20">
+                                    <motion.a
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        href={project.liveUrl || "#"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group/btn relative flex h-12 w-12 items-center justify-end overflow-hidden rounded-full bg-surface border border-white/5 text-textSecondary transition-all duration-300 hover:w-[130px] hover:bg-white/10 hover:border-white/20 hover:text-white"
+                                        aria-label="View Project"
+                                    >
+                                        <span className="absolute left-5 text-sm font-medium opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100 whitespace-nowrap">
                                             View Live
-                                        </div>
-
-                                        <motion.a
-                                            whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.1)' }}
-                                            whileTap={{ scale: 0.95 }}
-                                            href={project.liveUrl || "#"}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-12 h-12 rounded-full bg-surface border border-white/5 flex items-center justify-center text-textSecondary transition-colors group-hover:text-white group-hover/btn:border-white/20 group-hover/btn:text-white"
-                                            aria-label="View Project"
-                                        >
+                                        </span>
+                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center">
                                             <Navigation size={18} className="rotate-45" />
-                                        </motion.a>
-                                    </div>
+                                        </div>
+                                    </motion.a>
                                 </div>
                             </div>
                         </motion.div>
