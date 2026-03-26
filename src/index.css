@@ -9,4 +9,63 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0A0914;
+  color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+@keyframes grid-pan {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 60px; } /* Matches background-size height to loop seamlessly */
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+/* Deep Navy/Purple Glowing Grid Background */
+.bg-grid-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  /* Thin grid lines in soft blue/violet tone */
+  background-image: 
+    linear-gradient(to right, rgba(138, 144, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(138, 144, 255, 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
+  /* Fade out toward the edges */
+  mask-image: radial-gradient(ellipse at 50% 50%, black 15%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 15%, transparent 75%);
+  animation: grid-pan 15s linear infinite;
+}
+
+/* Soft blur overlay for depth effect */
+.bg-grid-pattern::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: inherit;
+  background-position: inherit;
+  filter: blur(4px);
+  opacity: 0.6;
+  animation: pulse-glow 8s ease-in-out infinite;
+}
+
+.bg-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3;
+  /* Deep navy blue to dark purple gradient, soft center light */
+  background: radial-gradient(circle at 50% 50%, rgba(45, 43, 85, 1) 0%, rgba(19, 20, 51, 1) 40%, rgba(10, 9, 20, 1) 100%);
 }

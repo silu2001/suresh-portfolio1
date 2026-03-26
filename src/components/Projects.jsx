@@ -1,99 +1,124 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { Navigation, Code2, Database, Layout } from 'lucide-react';
+
+import movieBookingImg from '../MovieBooking.png';
+import ecommerceImg from '../E-commerce website.png';
+import gymWebsiteImg from '../Gym Website.png';
+import maacProjectImg from '../MAACProject.png';
 
 const Projects = () => {
     const projects = [
         {
-            title: 'Pawsome Fetcher',
-            description: 'An app that finds the best dog parks near you using playful maps.',
-            tags: ['React', 'Mapbox', 'Node.js'],
-            image: 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=600&h=400&fit=crop',
-            color: 'bg-orange-100',
-            shadow: 'shadow-orange-200'
+            title: 'Movie Booking website',
+            description: 'A sleek cinematic platform allowing users to browse the latest releases, pick their favorite seats, and book tickets seamlessly online.',
+            image: movieBookingImg,
+            icons: [Code2, Layout, Database],
+            liveUrl: "https://movie-website-quick-shows.vercel.app/"
         },
         {
-            title: 'Study Buddies',
-            description: 'A platform to match students based on their favorite snacks and study habits.',
-            tags: ['Next.js', 'Firebase', 'Tailwind'],
-            image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop',
-            color: 'bg-purple-100',
-            shadow: 'shadow-purple-200'
+            title: 'E-commerce website',
+            description: 'A comprehensive online store featuring an intuitive product catalog, shopping cart logic, and a seamless checkout experience.',
+            image: ecommerceImg,
+            icons: [Database, Layout, Code2],
+            liveUrl: "https://e-commerce-project-one-ashen.vercel.app/"
         },
         {
-            title: 'Doodle Dashboard',
-            description: 'A productivity tool disguised as a fun digital sketchbook.',
-            tags: ['Vue', 'Express', 'MongoDB'],
-            image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop',
-            color: 'bg-green-100',
-            shadow: 'shadow-green-200'
+            title: 'Gym Website',
+            description: 'A modern fitness platform showcasing membership plans, expert trainer profiles, and up-to-date class schedules for health enthusiasts.',
+            image: gymWebsiteImg,
+            icons: [Layout, Code2, Database],
+            liveUrl: "https://cross-fit-gym-project.vercel.app/"
         },
+        {
+            title: 'MAAC Project',
+            description: 'A creative portfolio and educational showcase highlighting dynamic 3D animation, VFX, and engaging multimedia design courses.',
+            image: maacProjectImg,
+            icons: [Code2, Layout, Database],
+            liveUrl: "https://maac-project-react.vercel.app/"
+        }
     ];
 
     return (
-        <section id="projects" className="py-24 bg-[#fff0f5]">
-            <div className="max-w-6xl mx-auto px-6">
+        <section id="projects" className="py-24 bg-transparent relative">
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-black text-[#ff4757] mb-4">My Playgrounds 🎢</h2>
-                    <p className="text-xl text-[#ff6b81] max-w-2xl mx-auto">
-                        Some of the fun projects I've brought to life recently.
+                    <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-blue-400">
+                            Selected Works
+                        </span>
+                    </h2>
+                    <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+                        Some of my recent projects and experiments.
                     </p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 gap-8">
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 50 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
-                            whileHover={{ y: -15, rotate: index % 2 === 0 ? 2 : -2 }}
-                            className={`rounded-[2rem] overflow-hidden bg-white border-4 border-white shadow-xl ${project.shadow} transition-all duration-300`}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ y: -5 }}
+                            className="group relative flex flex-col rounded-[2.5rem] bg-surface/30 border border-white/5 overflow-hidden transition-all shadow-xl backdrop-blur-sm"
                         >
-                            <div className="relative h-48 overflow-hidden group">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-[#ff4757]/20 group-hover:bg-transparent transition-colors duration-300" />
+                            {/* Faint Background Number */}
+                            <div className="absolute right-10 bottom-32 text-[12rem] leading-none font-black text-white/[0.02] pointer-events-none z-0">
+                                0{index + 1}
                             </div>
 
-                            <div className={`p-8 ${project.color} h-full`}>
-                                <h3 className="text-2xl font-bold text-gray-800 mb-2">{project.title}</h3>
-                                <p className="text-gray-600 mb-6">{project.description}</p>
-
-                                <div className="flex flex-wrap gap-2 mb-8">
-                                    {project.tags.map(tag => (
-                                        <span key={tag} className="px-3 py-1 bg-white/60 text-gray-700 font-semibold rounded-full text-sm">
-                                            {tag}
-                                        </span>
-                                    ))}
+                            {/* Image Container with Padding */}
+                            <div className="p-6 pb-2 z-10">
+                                <div className="relative h-64 overflow-hidden rounded-3xl border border-white/10 bg-surfaceHover">
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                                 </div>
+                            </div>
 
-                                <div className="flex gap-4">
-                                    <motion.a
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        href="#"
-                                        className="p-3 bg-white text-[#ff4757] rounded-full shadow-sm hover:shadow-md transition-shadow"
-                                    >
-                                        <ExternalLink size={20} />
-                                    </motion.a>
-                                    <motion.a
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        href="#"
-                                        className="p-3 bg-white text-gray-700 rounded-full shadow-sm hover:shadow-md transition-shadow"
-                                    >
-                                        <Github size={20} />
-                                    </motion.a>
+                            {/* Content */}
+                            <div className="p-8 pt-4 flex flex-col flex-grow z-10">
+                                <h3 className="text-2xl font-black text-textPrimary mb-3 tracking-tight">{project.title}</h3>
+                                <p className="text-base text-textSecondary mb-10 leading-relaxed max-w-sm">{project.description}</p>
+
+                                {/* Footer: Icons & Button */}
+                                <div className="mt-auto flex items-center justify-between">
+                                    <div className="flex gap-2">
+                                        {project.icons.map((Icon, i) => (
+                                            <div key={i} className="w-10 h-10 rounded-xl bg-surface border border-white/5 flex items-center justify-center text-textSecondary shadow-inner transition-colors group-hover:border-white/10">
+                                                <Icon size={18} />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="relative group/btn">
+                                        {/* Tooltip */}
+                                        <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-md border border-white/10 text-white text-xs py-1.5 px-3 rounded-lg opacity-0 group-hover/btn:opacity-100 group-hover/btn:-translate-y-2 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl font-medium tracking-wide z-20">
+                                            View Live
+                                        </div>
+
+                                        <motion.a
+                                            whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.1)' }}
+                                            whileTap={{ scale: 0.95 }}
+                                            href={project.liveUrl || "#"}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-12 h-12 rounded-full bg-surface border border-white/5 flex items-center justify-center text-textSecondary transition-colors group-hover:text-white group-hover/btn:border-white/20 group-hover/btn:text-white"
+                                            aria-label="View Project"
+                                        >
+                                            <Navigation size={18} className="rotate-45" />
+                                        </motion.a>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

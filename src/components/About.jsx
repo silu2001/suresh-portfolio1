@@ -1,90 +1,93 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Palette, Sparkles, Heart } from 'lucide-react';
+import profilePic from '../assets/profile.png';
 
 const About = () => {
-    const skills = [
-        { name: 'React', color: 'bg-blue-100 text-blue-500' },
-        { name: 'JavaScript', color: 'bg-yellow-100 text-yellow-600' },
-        { name: 'Tailwind CSS', color: 'bg-teal-100 text-teal-500' },
-        { name: 'UI/UX Design', color: 'bg-purple-100 text-purple-500' },
-        { name: 'Framer Motion', color: 'bg-pink-100 text-pink-500' },
-        { name: 'Node.js', color: 'bg-green-100 text-green-600' },
-    ];
-
-    const cards = [
-        { icon: Code2, title: 'Clean Code', desc: 'Writing readable and maintainable solutions' },
-        { icon: Palette, title: 'Playful UI', desc: 'Designing interfaces that bring smiles' },
-        { icon: Sparkles, title: 'Animations', desc: 'Adding life with fluid motion' },
-        { icon: Heart, title: 'A11y', desc: 'Building for everyone' },
-    ];
-
     return (
-        <section id="about" className="py-24 bg-white relative">
-            {/* Playful Divider Top */}
-            <div className="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-[1px]">
-                <svg fill="#fff0f5" viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-[100%] h-[40px] rotate-180">
-                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-                </svg>
+        <section id="about" className="py-24 relative bg-transparent px-6 sm:px-10 lg:px-20 max-w-7xl mx-auto z-10">
+            <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-blue-400">
+                        About Me
+                    </span>
+                </h2>
+                <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+                    Turning ideas into real products.
+                </p>
             </div>
 
-            <div className="max-w-6xl mx-auto px-6 py-12">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+
+                {/* LEFT - IMAGE */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    className="text-center mb-16"
+                    transition={{ duration: 0.6 }}
+                    className="flex justify-center relative"
                 >
-                    <h2 className="text-4xl md:text-5xl font-black text-[#ff4757] mb-4">About Me 🧸</h2>
-                    <p className="text-xl text-[#ff6b81] max-w-2xl mx-auto">
-                        I'm a frontend developer who loves turning complex problems into beautiful, intuitive, and fun user experiences.
-                    </p>
+                    <div className="relative">
+                        <img
+                            src={profilePic}
+                            alt="Profile"
+                            className="w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-3xl border-2 border-white/10 shadow-2xl relative z-10 transition-transform duration-500 hover:scale-105 hover:-rotate-1"
+                        />
+
+                        {/* Glow Effect */}
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-accent to-blue-500 opacity-20 blur-3xl -z-10" />
+                    </div>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="space-y-6">
-                        <h3 className="text-3xl font-bold text-[#ff4757]">My Toolbox 🧰</h3>
-                        <div className="flex flex-wrap gap-3">
-                            {skills.map((skill, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, scale: 0.5 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
-                                    whileHover={{ scale: 1.1, rotate: index % 2 === 0 ? 5 : -5 }}
-                                    className={`px-6 py-3 rounded-full font-bold text-lg shadow-sm cursor-pointer ${skill.color}`}
-                                >
-                                    {skill.name}
-                                </motion.div>
-                            ))}
-                        </div>
+                {/* RIGHT - CONTENT */}
+                <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <p className="text-textSecondary text-lg leading-relaxed mb-8">
+                        I'm a MERN stack developer passionate about building fast,
+                        responsive, and scalable web applications. I love solving problems
+                        and creating user-friendly digital experiences that bridge the gap between design and engineering.
+                    </p>
 
-                        <p className="text-lg text-gray-600 mt-8 leading-relaxed">
-                            When I'm not coding, you can find me sketching out new UI ideas, exploring the latest animation libraries, or petting every dog I see on the street.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        {cards.map((card, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 }}
-                                whileHover={{ y: -10 }}
-                                className="bg-[#fff0f5] p-6 rounded-3xl border-2 border-[#ffb8b8] text-center"
+                    {/* SKILLS */}
+                    <div className="flex flex-wrap gap-3 mb-10">
+                        {["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"].map((tech) => (
+                            <span
+                                key={tech}
+                                className="px-5 py-2.5 bg-[#151521]/80 backdrop-blur-sm border border-white/5 rounded-full text-sm font-medium text-gray-300 hover:text-white hover:border-accent/30 hover:-translate-y-1 transition-all cursor-default shadow-lg"
                             >
-                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm text-[#ff4757]">
-                                    <card.icon size={28} />
-                                </div>
-                                <h4 className="font-bold text-[#ff4757] mb-2">{card.title}</h4>
-                                <p className="text-sm text-[#ff6b81]">{card.desc}</p>
-                            </motion.div>
+                                {tech}
+                            </span>
                         ))}
                     </div>
-                </div>
+
+                    {/* STATS */}
+                    <div className="flex gap-8 sm:gap-12 mb-10">
+                        <div>
+                            <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">1+</h3>
+                            <p className="text-gray-400 text-xs sm:text-sm uppercase tracking-widest font-medium">Years Exp</p>
+                        </div>
+                        <div>
+                            <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">10+</h3>
+                            <p className="text-gray-400 text-xs sm:text-sm uppercase tracking-widest font-medium">Projects</p>
+                        </div>
+                        <div>
+                            <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">100%</h3>
+                            <p className="text-gray-400 text-xs sm:text-sm uppercase tracking-widest font-medium">Focus</p>
+                        </div>
+                    </div>
+
+                    {/* BUTTON */}
+                    <button
+                        onClick={() => window.open('https://drive.google.com/file/d/1APQkYYocSiNsR81iP4L6WVVo0cmy0rcL/view?usp=drive_link', '_blank')}
+                        className="mt-2 bg-textPrimary text-background px-8 py-3.5 rounded-xl font-semibold text-base transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(196,181,253,0.3)] hover:scale-105"
+                    >
+                        Download CV
+                    </button>
+                </motion.div>
+
             </div>
         </section>
     );

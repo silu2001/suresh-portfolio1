@@ -1,121 +1,173 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Send, Coffee, Twitter, Linkedin, Github, Instagram } from 'lucide-react';
+import { Send, MapPin, Mail, Github, Twitter, Linkedin } from 'lucide-react';
 
 const Contact = () => {
     const [result, setResult] = React.useState("");
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        setResult("Sending....");
+        setIsSubmitting(true);
+        setResult("Sending message...");
         const formData = new FormData(event.target);
 
         formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
 
-        const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            body: formData
-        });
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (data.success) {
-            setResult("Message Sent Successfully 🎉");
-            event.target.reset();
-        } else {
-            console.log("Error", data);
-            setResult(data.message);
+            if (data.success) {
+                setResult("Message sent successfully.");
+                event.target.reset();
+            } else {
+                setResult(data.message || "Something went wrong.");
+            }
+        } catch (error) {
+            setResult("Network error. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
-        <section id="contact" className="py-24 bg-white relative overflow-hidden">
-            {/* Playful Divider Top */}
-            <div className="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-[1px]">
-                <svg fill="#fff0f5" viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-[100%] h-[40px]">
-                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-                </svg>
-            </div>
-
-            <div className="max-w-4xl mx-auto px-6 py-12 relative z-10">
+        <section id="contact" className="py-24 bg-transparent relative overflow-hidden">
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-[#fff0f5] rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-[#ffb8b8]/40 border-4 border-white flex flex-col md:flex-row gap-12 items-center"
+                    className="text-center mb-16"
                 >
-                    <div className="flex-1 text-center md:text-left">
-                        <h2 className="text-4xl md:text-5xl font-black text-[#ff4757] mb-4">Let's Chat! 💬</h2>
-                        <p className="text-xl text-[#ff6b81] mb-8">
-                            Have a cool project in mind? Or just want to talk about the best coffee spots? I'm all ears!
-                        </p>
-                        <motion.div
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="inline-flex items-center justify-center p-6 bg-white rounded-full text-[#ff4757] shadow-lg mb-8"
-                        >
-                            <Coffee size={40} />
-                        </motion.div>
-
-                        <div className="flex justify-center md:justify-start gap-4 mb-8 md:mb-0">
-                            {[Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
-                                <motion.a
-                                    key={i}
-                                    href="#"
-                                    whileHover={{ scale: 1.2, rotate: 5, backgroundColor: "#ffb8b8", color: "#fff" }}
-                                    whileTap={{ scale: 0.9 }}
-                                    className="p-3 bg-white text-[#ff6b81] rounded-full shadow-sm transition-colors border border-transparent hover:border-[#ffb8b8]"
-                                >
-                                    <Icon size={24} />
-                                </motion.a>
-                            ))}
-                        </div>
-                    </div>
-
-                    <form className="flex-1 w-full space-y-4" onSubmit={onSubmit}>
-                        <div>
-                            <input
-                                type="text"
-                                name="name"
-                                required
-                                placeholder="What's your name?"
-                                className="w-full px-6 py-4 rounded-full bg-white border-2 border-transparent focus:border-[#ffb8b8] focus:outline-none focus:ring-4 focus:ring-[#fff0f5] transition-all text-gray-700 shadow-sm"
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="email"
-                                name="email"
-                                required
-                                placeholder="Where can I reach you?"
-                                className="w-full px-6 py-4 rounded-full bg-white border-2 border-transparent focus:border-[#ffb8b8] focus:outline-none focus:ring-4 focus:ring-[#fff0f5] transition-all text-gray-700 shadow-sm"
-                            />
-                        </div>
-                        <div>
-                            <textarea
-                                name="message"
-                                required
-                                rows="4"
-                                placeholder="Tell me everything..."
-                                className="w-full px-6 py-4 rounded-[2rem] bg-white border-2 border-transparent focus:border-[#ffb8b8] focus:outline-none focus:ring-4 focus:ring-[#fff0f5] transition-all text-gray-700 shadow-sm resize-none"
-                            ></textarea>
-                        </div>
-                        <motion.button
-                            type="submit"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="w-full px-8 py-4 bg-[#ff4757] text-white rounded-full font-bold text-lg transition-all shadow-[0_6px_0_#ff6b81] hover:shadow-[0_2px_0_#ff6b81] hover:translate-y-1 hover:bg-[#ff5e6d] flex items-center justify-center gap-2"
-                        >
-                            Send Message <Send size={20} />
-                        </motion.button>
-                        <span className="block text-center text-[#ff6b81] font-medium mt-4">{result}</span>
-                    </form>
+                    <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-blue-400">
+                            Get In Touch
+                        </span>
+                    </h2>
+                    <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+                        Ready to start your next project? Let's build something exceptional together.
+                    </p>
                 </motion.div>
-            </div>
 
-            <footer className="text-center pb-8 pt-12 text-[#ffb8b8] font-medium">
-                <p>Made with 💖 and a lot of ☕ by Suresh</p>
-            </footer>
+                <div className="flex flex-col md:flex-row gap-12 lg:gap-20">
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="flex-1 space-y-10"
+                    >
+                        <div className="space-y-6">
+                            <h3 className="text-2xl font-semibold text-textPrimary mb-6">Contact Information</h3>
+                            
+                            <div className="flex items-center gap-4 text-textSecondary border border-white/5 p-4 rounded-xl bg-surface/30">
+                                <div className="w-12 h-12 bg-surface flex items-center justify-center rounded-lg border border-border text-accent">
+                                    <Mail size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-textSecondary/70 mb-1">Email</p>
+                                    <p className="text-textPrimary text-sm sm:text-base">hello@suresh.dev</p>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-4 text-textSecondary border border-white/5 p-4 rounded-xl bg-surface/30">
+                                <div className="w-12 h-12 bg-surface flex items-center justify-center rounded-lg border border-border text-accent">
+                                    <MapPin size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-textSecondary/70 mb-1">Location</p>
+                                    <p className="text-textPrimary text-sm sm:text-base">San Francisco, CA</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-2xl font-semibold text-textPrimary mb-6">Social Profiles</h3>
+                            <div className="flex gap-4">
+                                {[Github, Twitter, Linkedin].map((Icon, i) => (
+                                    <motion.a
+                                        key={i}
+                                        href="#"
+                                        whileHover={{ scale: 1.05, y: -2 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="w-12 h-12 bg-surface text-textSecondary border border-border rounded-lg flex items-center justify-center hover:bg-surfaceHover hover:text-textPrimary transition-all hover:border-white/20"
+                                    >
+                                        <Icon size={20} />
+                                    </motion.a>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="flex-[1.5]"
+                    >
+                        <form onSubmit={onSubmit} className="bg-surface/50 p-8 rounded-2xl border border-white/5 shadow-2xl backdrop-blur-sm space-y-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-textSecondary">Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        required
+                                        placeholder="John Doe"
+                                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-accent focus:ring-2 focus:ring-accentGlow transition-all text-textPrimary placeholder-textSecondary/30 outline-none"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-textSecondary">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        placeholder="john@example.com"
+                                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-accent focus:ring-2 focus:ring-accentGlow transition-all text-textPrimary placeholder-textSecondary/30 outline-none"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-textSecondary">Message</label>
+                                <textarea
+                                    name="message"
+                                    required
+                                    rows="5"
+                                    placeholder="Tell me about your project..."
+                                    className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-accent focus:ring-2 focus:ring-accentGlow transition-all text-textPrimary placeholder-textSecondary/30 outline-none resize-none"
+                                ></textarea>
+                            </div>
+
+                            <motion.button
+                                type="submit"
+                                disabled={isSubmitting}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="w-full px-8 py-4 bg-textPrimary text-background rounded-lg font-semibold text-base transition-all shadow-lg hover:bg-white hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                                {isSubmitting ? "Sending..." : "Send Message"}
+                                {!isSubmitting && <Send size={18} />}
+                            </motion.button>
+
+                            {result && (
+                                <motion.p 
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="text-center text-sm font-medium text-textSecondary"
+                                >
+                                    {result}
+                                </motion.p>
+                            )}
+                        </form>
+                    </motion.div>
+                </div>
+            </div>
         </section>
     );
 };
